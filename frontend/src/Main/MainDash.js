@@ -1,92 +1,95 @@
-import React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-// import axios from 'axios';
-// , {useState, useEffect}
-
-function CircularProgressWithLabel(props) {
-  return (
-    <Box sx={{ position: 'relative', display: 'inline-flex', borderRadius:'100%' }}>
-      <CircularProgress variant="determinate" {...props} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius:'100%',
-          border:'2px',
-          boxShadow:'2px 2px 2px 2px rgba(0, 0, 0, 0.2)'
-        }}
-      >
-        <Typography variant="h2" component="div" color="text.secondary" textAlign="center">
-          {`${Math.round(props.value)}`}<br/><span className='text-lg'>Fitness Score</span>
-        </Typography>
-      </Box>
-    </Box>
-  );
-}
-
-
-
+import React, { useState, useEffect } from "react";
+import HorizontalBarChart from "./HorizontalBarChart";
+import Items from "./Items";
+import DataTable from "./DataTable";
 
 const MainDash = () => {
-  const progress = 69
-  // const [userData, setUserData] = useState(null);
-  // const [status, setStatus] = useState('');
+  const CropData = [
+    { name: "Wheat", season: "Winter", area: 1000, kgha: 1500 },
+    { name: "Rice", season: "Monsoon", area: 2000, kgha: 2000 },
+    { name: "Maize", season: "Summer", area: 1500, kgha: 1800 },
+    { name: "Barley", season: "Winter", area: 1200, kgha: 1600 },
+  ];
+  const data = [
+    { name: "Yield Performance", value: 100 },
+    { name: "Soil health", value: 200 },
+    { name: "Irrigation condition", value: 150 },
+    { name: "Risk property (Flood)", value: 100 },
+    { name: "Risk property (Drought)", value: 170 },
+  ];
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get('https://0313-2409-40c0-28-33dd-c481-44de-4015-4df9.ngrok-free.app/get');
-  //       const result = response.data;
+  const [riskType, setRiskType] = useState("");
 
-  //       if (result.status === 'success') {
-  //         setUserData(result.data[0]);
-  //         setStatus(result.status);
-  //       } else {
-  //         // Handle error status
-  //         setStatus(result.status);
-  //       }
-  //     } catch (error) {
-  //       // Handle fetch error
-  //       console.error('Error fetching data:', error.message);
-  //     }
-  //   };
+  const totalScore = data.reduce((acc, curr) => acc + curr.value, 0);
 
-  //   fetchData();
-  // }, []);
-  
-  // console.log(userData)
+  useEffect(() => {
+    const handleRiskType = () => {
+      if (totalScore < 0) {
+        setRiskType("High risk");
+      } else if (totalScore < 690 && totalScore >= 290) {
+        setRiskType("Medium risk");
+      } else {
+        setRiskType("Low risk");
+      }
+    };
+    handleRiskType();
+  }, [totalScore]);
 
   return (
-    <div className='flex items-center justify-center w-full h-[86vh] p-8 bg-[#f7f7f7]'>
-      {/* First Section */}
-      <div className='w-[33%] h-full flex items-center justify-around flex-col '>
-
-        <div className='flex items-center justify-center w-full match-height gap-4 my-2 h-[25%]'>
-          <div className="bg-white p-4 rounded-md shadow-lg w-[70%] h-full my-2">
-            <h3 className="text-2xl font-semibold mb-2">72 </h3>
-            <p className='text-sm'>Resting Heart Rate (bpm)</p>
-          </div>
+    <div className="p-5 h-full ">
+      <div className=" bg-white h-3/4 p-3 rounded-md text-gray-900 border-2 mb-3">
+        <h1 className="text-3xl font-bold  border-b-2 pb-2">My Dashboard</h1>
+        <div className="flex justify-around items-center px-5">
+          <section className="grid grid-cols-2 gap-x-20 gap-y-5">
+            {data.map((dataItem) => (
+              <Items
+                key={dataItem.name}
+                name={dataItem.name}
+                value={dataItem.value}
+                maxValue="200"
+              />
+            ))}
+          </section>
+          <section className="">
+            <HorizontalBarChart data={data} />
+          </section>
         </div>
-
-
+        <div className="bg-[#49b07c] text-white h-1/4 rounded-md flex justify-around items-center p-3">
+          <div className="grid grid-cols-2 gap-x-20 gap-y-5">
+            <div>
+              <h1 className="text-lg font-bold">Total score</h1>
+              <h1 className=" font-bold text-xl">
+                <span className="text-4xl">{totalScore}</span> / 1000
+              </h1>
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold">Risk type</h1>
+              <h1 className=" font-bold text-xl">
+                <span className="text-4xl">{riskType}</span>
+              </h1>
+            </div>
+          </div>
+          <ul>
+            <li>
+              <span className="font-bold">High risk: </span> 0 - 290
+            </li>
+            <li>
+              <span className="font-bold">Medium risk: </span> 300 - 690
+            </li>
+            <li>
+              <span className="font-bold">Low risk: </span> 700 - 1000
+            </li>
+          </ul>
+        </div>
       </div>
-
-      {/* Second Section with CircularProgressWithLabel */}
-      <div className='w-[33%] h-full flex flex-col items-center justify-center' >
-        <h1 className='text-5xl tracking-widest mb-10 font-extrabold'>User KPIs</h1>
-        <CircularProgressWithLabel value={progress} size={250} />
+      <div>
+        <h1 className="text-xl font-bold py-3">
+          Major crops & their performance
+        </h1>
+        <DataTable data={CropData} />
       </div>
-
     </div>
   );
-}
+};
 
 export default MainDash;

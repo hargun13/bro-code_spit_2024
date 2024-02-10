@@ -5,7 +5,7 @@ import { UserAuth } from "../FirebaseAuthContext/AuthContext";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
-import logo from "../Logos/trucomply.png";
+import logo from "../Logos/logo.png";
 import hero from "./fitness-hero.png";
 import Flip from "react-reveal/Flip";
 import Fade from "react-reveal/Fade";

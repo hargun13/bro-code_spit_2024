@@ -11,6 +11,8 @@ import Signup from "./Login_Signup/Signup";
 import Sidebar from "./components/Sidebar";
 import MainDash from "./Main/MainDash";
 import UserProfile from "./Main/Profile/UserProfile";
+import Transactions from "./Transaction/Transactions";
+import TransferMoney from "./Transaction/TransferMoney";
 
 // import Rewards from './Main/Rewards/Rewards';
 
@@ -30,6 +32,8 @@ function App() {
           <Route path="/SignUp" element={<Signup setLogin={setLogin} />} />
           <Route path="/Dashboard" element={<MainDash />} />
           <Route path="/Profile" element={<UserProfile />} />
+          <Route path="/transaction" element={<Transactions />} />
+          <Route path="/transfer" element={<TransferMoney />} />
         </Routes>
       </AuthContextProvider>
     </div>
