@@ -4,11 +4,11 @@ import admin from "firebase-admin";
 
 export const userData = async (req, res) => {
   try {
-    const { name, email } = req.body; // Extract 'name' and 'email' from the request body
+    const { email } = req.body; // Extract 'name' and 'email' from the request body
 
     const user = {
-      name: name,
       email: email,
+      balance: 10000,
     };
 
     const db = admin.firestore();

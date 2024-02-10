@@ -8,6 +8,23 @@ const TransactionsTable = () => {
 
   const [tableData, setTableData] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/gettransfer/");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        setTableData([data]); // Assuming the response is an object
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <table className="w-full ">
@@ -24,17 +41,26 @@ const TransactionsTable = () => {
         </thead>
 
         <tbody>
-          {/* {tableData.map((map) => {
+          {tableData.map((map) => {
+            // Check if the current user's email matches recEmail or senderEmail
+            const isRecipient = map.recEmail === user?.email;
+            const isSender = map.senderEmail === user?.email;
+
+            // Define the background color classes based on the user's role
+            const bgColorClass = isRecipient
+              ? "bg-green-500"
+              : isSender
+              ? "bg-red-500"
+              : "";
+
             return (
               <tr
-                className="transition duration-500 hover:bg-[#101010] hover:text-white text-center cursor-pointer"
+                className={`transition duration-500 hover:bg-[#101010] hover:text-white text-center cursor-pointer ${bgColorClass}`}
                 key={map.id}
               >
+                <td className="w-[20%] py-5 font-normal text-md">{map.uuid}</td>
                 <td className="w-[20%] py-5 font-normal text-md">
-                  {map.TransactionId}
-                </td>
-                <td className="w-[20%] py-5 font-normal text-md">
-                  {user?.email}
+                  {map.userEmail}
                 </td>
                 <td className="w-[20%] py-5 font-normal text-md">
                   {map.recEmail}
@@ -47,7 +73,7 @@ const TransactionsTable = () => {
                 </td>
               </tr>
             );
-          })} */}
+          })}
         </tbody>
       </table>
     </div>

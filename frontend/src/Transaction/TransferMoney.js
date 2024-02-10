@@ -29,8 +29,6 @@ const TransferMoney = () => {
       senderEmail: user?.email,
     };
 
-    console.log("chal ja mc");
-
     try {
       const response = await fetch("/transfer", {
         method: "POST",
@@ -39,7 +37,7 @@ const TransferMoney = () => {
         },
         body: JSON.stringify(payload),
       });
-      console.log("yaha pe chal ja");
+
       if (response.ok) {
         console.log("Data sent successfully");
         setAmount("");
