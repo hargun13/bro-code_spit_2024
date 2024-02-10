@@ -4,11 +4,11 @@ import admin from 'firebase-admin';
 
 export const userData = async (req, res) => {
   try {
-    const { name, email } = req.body; // Extract 'name' and 'email' from the request body
+    const { email } = req.body; // Extract 'name' and 'email' from the request body
 
     const user = {
-      name: name,
       email: email,
+      balance: 10000,
     }
 
     const db = admin.firestore();
@@ -27,11 +27,11 @@ export const userData = async (req, res) => {
 
 export const transaction = async (req, res) => {
   try {
-    const { uuid, amonut, date_Time, recEmail, senderEmail } = req.body; // Extract 'name' and 'email' from the request body
+    const { uuid, amount, date_Time, recEmail, senderEmail } = req.body; // Extract 'name' and 'email' from the request body
 
     const transaction_data = {
       uuid: uuid,
-      amonut: amonut,
+      amount: amount,
       date_Time: date_Time,
       recEmail: recEmail,
       senderEmail: senderEmail,

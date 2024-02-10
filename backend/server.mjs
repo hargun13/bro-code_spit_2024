@@ -13,7 +13,7 @@ admin.initializeApp({
 
 // Create an Express app
 const app = express();
-const port = 3000; // or your desired port
+const port = 5000; // or your desired port
 
 app.use(express.json());
 
@@ -27,6 +27,32 @@ app.post('/addUserData', userData);
 
 app.post('/transfer', transaction)
 
+app.get('/gettransfer/:uuid', async (req, res) => {
+  try {
+    const uuid = req.params.uuid;
+
+    if (!uuid) {
+      return res.status(400).json({ error: 'UUID is required.' });
+    }
+
+    const db = admin.firestore();
+    const usersRef = db.collection('transaction');
+    
+    // Query Firestore based on the 'uuid' field
+    const snapshot = await usersRef.where('uuid', '==', uuid).get();
+
+    if (snapshot.empty) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    // Assuming there is only one user with the specified UUID
+    const userData = snapshot.docs[0].data();
+    res.json(userData);
+  } catch (error) {
+    console.error('Error retrieving user data from Firestore:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 // Start the Express server
 app.listen(port, () => {
