@@ -41,7 +41,7 @@ const TransactionsTable = (props) => {
               >
                 <td className="w-[20%] py-5 font-normal text-md">{map.uuid}</td>
                 <td className="w-[20%] py-5 font-normal text-md">
-                  {map.userEmail}
+                  {map.senderEmail}
                 </td>
                 <td className="w-[20%] py-5 font-normal text-md">
                   {map.recEmail}
