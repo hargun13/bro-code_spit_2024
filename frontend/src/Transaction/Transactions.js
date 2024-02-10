@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TransactionsTable from "./TransactionsTable";
+import { UserAuth } from "../FirebaseAuthContext/AuthContext";
 
 const Transactions = () => {
+  const [tableData, setTableData] = useState([]);
+  const { user } = UserAuth();
+
+  useEffect(() => {
+    const fetchData = async (user) => {
+      try {
+        if (!user || !user.email) {
+          console.error("User object or email is missing.");
+          return;
+        }
+
+        const response = await fetch(`/gettransfer/${user.email}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        setTableData(data); // Assuming the response is an object
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData(user);
+  }, [user]);
   return (
     <div className="w-full p-10 overflow-y-auto">
       <div className="flex items-center justify-between mb-10">
@@ -22,7 +47,7 @@ const Transactions = () => {
           </button>
         </form>
       </div>
-      <TransactionsTable />
+      <TransactionsTable data={tableData} />
     </div>
   );
 };
