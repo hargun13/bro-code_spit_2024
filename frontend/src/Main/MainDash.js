@@ -13,27 +13,37 @@ const MainDash = () => {
   const data = [
     { name: "Yield Performance", value: 100 },
     { name: "Soil health", value: 200 },
-    { name: "Irrigation condition", value: 150 },
+    { name: "Irrigation condition", value: 200 },
     { name: "Risk property (Flood)", value: 100 },
     { name: "Risk property (Drought)", value: 170 },
   ];
 
+  // State for total score
+  const [totalScore, setTotalScore] = useState(0);
+
   const [riskType, setRiskType] = useState("");
 
-  const totalScore = data.reduce((acc, curr) => acc + curr.value, 0);
-
   useEffect(() => {
-    const handleRiskType = () => {
-      if (totalScore < 0) {
-        setRiskType("High risk");
-      } else if (totalScore < 690 && totalScore >= 290) {
-        setRiskType("Medium risk");
-      } else {
-        setRiskType("Low risk");
-      }
-    };
-    handleRiskType();
-  }, [totalScore]);
+    // Calculate total score
+    const score = data.reduce((acc, curr) => acc + curr.value, 0);
+    setTotalScore(score);
+
+    // Determine risk type based on total score
+    if (score < 290) {
+      setRiskType("High risk");
+    } else if (score < 690 && score >= 290) {
+      setRiskType("Medium risk");
+    } else {
+      setRiskType("Low risk");
+    }
+  }, [data]);
+
+  // Define text color classes based on risk type
+  const riskTypeTextColor = {
+    "High risk": "text-red-500",
+    "Medium risk": "text-yellow-500",
+    "Low risk": "text-green-500",
+  };
 
   return (
     <div className="p-5 h-full ">
@@ -54,7 +64,7 @@ const MainDash = () => {
             <HorizontalBarChart data={data} />
           </section>
         </div>
-        <div className="bg-[#49b07c] text-white h-1/4 rounded-md flex justify-around items-center p-3">
+        <div className="bg-[#aeeccd] text-gray-900 h-1/4 rounded-md flex justify-around items-center p-3">
           <div className="grid grid-cols-2 gap-x-20 gap-y-5">
             <div>
               <h1 className="text-lg font-bold">Total score</h1>
@@ -64,7 +74,10 @@ const MainDash = () => {
             </div>
             <div>
               <h1 className="text-lg font-semibold">Risk type</h1>
-              <h1 className=" font-bold text-xl">
+              {/* Apply dynamic text color based on risk type */}
+              <h1
+                className={`font-bold text-xl ${riskTypeTextColor[riskType]}`}
+              >
                 <span className="text-4xl">{riskType}</span>
               </h1>
             </div>

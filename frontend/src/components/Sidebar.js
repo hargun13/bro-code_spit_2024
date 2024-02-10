@@ -106,9 +106,9 @@ export default function Sidebar({ setLogin }) {
     const listItemsData = [
       // { to: "/Dashboard", icon: <MdOutlineDashboard className='mr-3' size={25} />, text: "Dashboard" },
       {
-        to: "/fmcchatbot",
+        to: "/Dashboard",
         icon: <GrCompliance className="mr-3 " size={25} />,
-        text: "ComplyBot",
+        text: "Dashboard",
       },
       {
         to: "/transaction",

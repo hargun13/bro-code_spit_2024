@@ -17,20 +17,39 @@ const TransferMoney = () => {
     setRecEmail(e.target.value);
   };
 
-  const writeToDatabase = () => {
+  // Client-side code (TransferMoney.js)
+
+  const writeToDatabase = async () => {
     const uuid = uid();
-    const date = new Date().toLocaleString();
-
-    set(ref(database, "Transaction/" + uuid), {
-      TransactionId: uuid,
-      amount,
-      date,
-      recEmail,
+    const payload = {
+      uuid: uuid,
+      amount: amount,
+      date_Time: new Date().toLocaleString(),
+      recEmail: recEmail,
       senderEmail: user?.email,
-    });
+    };
 
-    setAmount("");
-    setRecEmail("");
+    console.log("chal ja mc");
+
+    try {
+      const response = await fetch("/transfer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      console.log("yaha pe chal ja");
+      if (response.ok) {
+        console.log("Data sent successfully");
+        setAmount("");
+        setRecEmail("");
+      } else {
+        console.error("Failed to send data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

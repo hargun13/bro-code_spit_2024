@@ -34,7 +34,7 @@ function Navbar() {
       </ul>
 
       <ul className="hidden md:flex font-bold text-base mr-14">
-        <li className="p-2 px-10 transition duration-300 hover:text-[#A0BDFF]  cursor-pointer">
+        <li className="p-2 px-10 transition duration-300 hover:text-[#7fe4b2]  cursor-pointer">
           <a href="/Login">Login</a>
         </li>
         <li className="p-2 px-4 bg-[#62D69C] rounded-3xl transition duration-300 hover:text-white  cursor-pointer">

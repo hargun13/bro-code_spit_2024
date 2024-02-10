@@ -8,28 +8,6 @@ const TransactionsTable = () => {
 
   const [tableData, setTableData] = useState([]);
 
-  // useEffect(() => {
-  //   const dbRef = ref(database, "Transaction/");
-  //   get(dbRef)
-  //     .then((snapshot) => {
-  //       if (snapshot.exists()) {
-  //         const data = [];
-  //         snapshot.forEach((childSnapshot) => {
-  //           const childKey = childSnapshot.key;
-  //           const childData = childSnapshot.val();
-  //           data.push({ id: childKey, ...childData });
-
-  //           setTableData(data);
-  //         });
-  //       } else {
-  //         console.log("No data available");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, []);
-
   return (
     <div>
       <table className="w-full ">
@@ -41,7 +19,7 @@ const TransactionsTable = () => {
               Receiver Detail
             </td>
             <td className="w-[20%] py-5 font-normal text-md">Amount Detail</td>
-            <td className="w-[20%] py-5 font-normal text-md">Time</td>
+            <td className="w-[20%] py-5 font-normal text-md">Date</td>
           </tr>
         </thead>
 
