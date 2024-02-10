@@ -1,5 +1,5 @@
 // import firebase from 'firebase/compat/app'; // Import the 'compat' version for backward compatibility
-import "firebase/compat/database"; // Import the 'compat' version for backward compatibility
+// import "firebase/compat/database"; // Import the 'compat' version for backward compatibility
 import admin from "firebase-admin";
 
 export const userData = async (req, res) => {

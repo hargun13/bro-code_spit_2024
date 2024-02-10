@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "@firebase/database-compat": "^1.0.3",
     "ansi-regex": "^5.0.1",
     "ansi-styles": "^4.3.0",
     "cliui": "^8.0.1",
