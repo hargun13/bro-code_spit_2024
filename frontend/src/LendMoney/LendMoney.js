@@ -4,8 +4,13 @@ import Record from "./Record";
 
 const LendMoney = () => {
   const { user } = UserAuth();
+  const [loanData, setLoanData] = useState(initSoilData);
   const initSoilData = [
     {
+      email: "",
+      loan_amount: 0,
+      loan_period: 0,
+      credit_scrore: 0,
       yield_performance: 0,
       soil_health: 0,
       irrigation_condition: 0,
@@ -23,10 +28,9 @@ const LendMoney = () => {
         <h1 className="text-xl text-white font-bold ">Credit score</h1>
         <h1 className="text-xl text-white font-bold ">Risk assessment</h1>
       </div>
-      <Record data={initSoilData} />
-      <Record data={initSoilData} />
-      <Record data={initSoilData} />
-      <Record data={initSoilData} />
+      {loanData.map((data) => (
+        <Record data={data} />
+      ))}
     </div>
   );
 };

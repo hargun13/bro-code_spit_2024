@@ -48,8 +48,8 @@ const UserDetails = (props) => {
             maxValue="200"
           />
           <Items
-            key="Irrigation consition"
-            name="Irrigation consition"
+            key="Irrigation condition"
+            name="Irrigation condition"
             value={props.data[0].irrigation_condition}
             maxValue="200"
           />
