@@ -10,13 +10,18 @@ import {
 } from "recharts";
 
 const HorizontalBarChart = ({ data }) => {
+  const formattedData = Object.entries(data[0]).map(([name, value]) => ({
+    name,
+    value,
+  }));
+
   return (
     <BarChart
       width={600}
       height={300}
-      data={data}
+      data={formattedData}
       layout="vertical"
-      margin={{ top: 20, right: 30, left: 30, bottom: 5 }}
+      margin={{ top: 20, right: 30, left: 90, bottom: 5 }}
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis type="number" stroke="black" tick={{ fontSize: 12 }} />

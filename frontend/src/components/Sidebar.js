@@ -116,9 +116,9 @@ export default function Sidebar({ setLogin }) {
         text: "transaction",
       },
       {
-        to: "/find",
+        to: "/lend",
         icon: <HiMagnifyingGlass className="mr-3 " size={25} />,
-        text: "ComplyFinder",
+        text: "Loan request",
       },
       {
         to: "/transfer",
