@@ -30,7 +30,7 @@ const Transactions = () => {
   return (
     <div className="w-full p-10 overflow-y-auto">
       <div className="flex items-center justify-between mb-10">
-        <h1 className="text-5xl font-semibold">Your Transactions</h1>
+        <h1 className="text-5xl font-thin">Your Transactions</h1>
         <form className="w-1/3 relative">
           <input
             type="search"

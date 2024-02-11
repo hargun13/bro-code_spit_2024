@@ -14,8 +14,11 @@ const UserDetails = (props) => {
   };
 
   useEffect(() => {
-    // Calculate total score
-    const score = props.data.reduce((acc, curr) => acc + curr.value, 0);
+    // Calculate total score by summing up all values
+    const score = Object.values(props.data[0]).reduce(
+      (acc, curr) => acc + curr,
+      0
+    );
     setTotalScore(score);
 
     // Determine risk type based on total score
@@ -26,19 +29,42 @@ const UserDetails = (props) => {
     } else {
       setRiskType("Low risk");
     }
-  }, []);
+  }, [props.data]);
+
   return (
     <>
       <div className="flex justify-around items-center px-5">
         <section className="grid grid-cols-2 gap-x-20 gap-y-5">
-          {props.data.map((dataItem) => (
-            <Items
-              key={dataItem.name}
-              name={dataItem.name}
-              value={dataItem.value}
-              maxValue="200"
-            />
-          ))}
+          <Items
+            key="Yield Performance"
+            name="Yield Performance"
+            value={props.data[0].yield_performance}
+            maxValue="200"
+          />
+          <Items
+            key="Soil health"
+            name="Soil health"
+            value={props.data[0].soil_health}
+            maxValue="200"
+          />
+          <Items
+            key="Irrigation consition"
+            name="Irrigation consition"
+            value={props.data[0].irrigation_condition}
+            maxValue="200"
+          />
+          <Items
+            key="Risk property (Flood)"
+            name="Risk property (Flood)"
+            value={props.data[0].risk_property_flood}
+            maxValue="200"
+          />
+          <Items
+            key="Risk property (Drought)"
+            name="Risk property (Drought)"
+            value={props.data[0].risk_property_drought}
+            maxValue="200"
+          />
         </section>
         <section className="">
           <HorizontalBarChart data={props.data} />
