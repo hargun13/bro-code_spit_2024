@@ -87,3 +87,82 @@ export const getTransactionData = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const getUserSoil = async (req, res) => {
+  try {
+    const email = req.params.email;
+
+    if (!email) {
+      return res.status(400).json({ error: "Email is required." });
+    }
+
+    const db = admin.firestore();
+    const usersRef = db.collection("userSoilData");
+
+    // Query Firestore based on the 'recEmail' field
+    const soilData = await usersRef.where("email", "==", email).get();
+
+    if (soilData.empty) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    res.json(soilData);
+  } catch (error) {
+    console.error("Error retrieving user data from Firestore:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const getLoanData = async (req, res) => {
+  try {
+    const email = req.params.email;
+
+    if (!email) {
+      return res.status(400).json({ error: "Email is required." });
+    }
+
+    const db = admin.firestore();
+    const usersRef = db.collection("loanRequest");
+
+    const querySnapshot = await usersRef.where("email", "!=", email).get();
+
+    if (querySnapshot.empty) {
+      return res.status(404).json({ error: "No data found." });
+    }
+
+    // Extract data from all documents
+    const allUserData = querySnapshot.docs.map((doc) => doc.data());
+
+    res.json(allUserData);
+  } catch (error) {
+    console.error("Error retrieving user data from Firestore:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const getUser = async (req, res) => {
+  try {
+    const email = req.params.email;
+
+    if (!email) {
+      return res.status(400).json({ error: "Email is required." });
+    }
+
+    const db = admin.firestore();
+    const usersRef = db.collection("loanRequest");
+
+    const querySnapshot = await usersRef.where("email", "==", email).get();
+
+    if (querySnapshot.empty) {
+      return res.status(404).json({ error: "No data found." });
+    }
+
+    // Extract data from all documents
+    const allUserData = querySnapshot.docs.map((doc) => doc.data());
+
+    res.json(allUserData);
+  } catch (error) {
+    console.error("Error retrieving user data from Firestore:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

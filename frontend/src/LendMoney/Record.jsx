@@ -29,7 +29,13 @@ const Record = (props) => {
       <div
         className={`border-2 p-3 col-span-5 ${!showDetails ? "hidden" : ""}`}
       >
-        <UserDetails data={props.data} />
+        <UserDetails
+          yield_performance={props.yield_performance}
+          soil_health={props.soil_health}
+          irrigation_condition={props.irrigation_condition}
+          risk_property_flood={props.risk_property_flood}
+          risk_property_drought={props.risk_property_drought}
+        />
       </div>
     </div>
   );

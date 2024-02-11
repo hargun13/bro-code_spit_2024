@@ -1,23 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UserAuth } from "../FirebaseAuthContext/AuthContext";
 import Record from "./Record";
 
 const LendMoney = () => {
   const { user } = UserAuth();
-  const [loanData, setLoanData] = useState(initSoilData);
-  const initSoilData = [
-    {
-      email: "",
-      loan_amount: 0,
-      loan_period: 0,
-      credit_scrore: 0,
-      yield_performance: 0,
-      soil_health: 0,
-      irrigation_condition: 0,
-      risk_property_flood: 0,
-      risk_property_drought: 0,
-    },
-  ];
+  const [loanData, setLoanData] = useState([]);
+
+  useEffect(() => {
+    const fetchLoanData = async (user) => {
+      try {
+        const response = await fetch(`/getLoanRequest/${user.email}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch loan data");
+        }
+        console.log(user);
+        const data = await response.json();
+        setLoanData(data);
+      } catch (error) {
+        console.error("Error fetching loan data:", error);
+      }
+    };
+
+    fetchLoanData(user);
+  }, [user]);
+
   return (
     <div className="p-5">
       <h1 className="text-5xl font-thin mb-5">Loan requests</h1>
@@ -28,8 +34,8 @@ const LendMoney = () => {
         <h1 className="text-xl text-white font-bold ">Credit score</h1>
         <h1 className="text-xl text-white font-bold ">Risk assessment</h1>
       </div>
-      {loanData.map((data) => (
-        <Record data={data} />
+      {loanData.map((data, index) => (
+        <Record key={index} {...data} />
       ))}
     </div>
   );

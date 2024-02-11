@@ -14,11 +14,29 @@ const UserDetails = (props) => {
   };
 
   useEffect(() => {
+    const {
+      yield_performance,
+      soil_health,
+      irrigation_condition,
+      risk_property_flood,
+      risk_property_drought,
+    } = props;
+
+    // Convert string values to integers
+    const yieldPerformanceInt = parseInt(yield_performance, 10);
+    const soilHealthInt = parseInt(soil_health, 10);
+    const irrigationConditionInt = parseInt(irrigation_condition, 10);
+    const riskPropertyFloodInt = parseInt(risk_property_flood, 10);
+    const riskPropertyDroughtInt = parseInt(risk_property_drought, 10);
+
     // Calculate total score by summing up all values
-    const score = Object.values(props.data[0]).reduce(
-      (acc, curr) => acc + curr,
-      0
-    );
+    const score =
+      yieldPerformanceInt +
+      soilHealthInt +
+      irrigationConditionInt +
+      riskPropertyFloodInt +
+      riskPropertyDroughtInt;
+
     setTotalScore(score);
 
     // Determine risk type based on total score
@@ -29,7 +47,7 @@ const UserDetails = (props) => {
     } else {
       setRiskType("Low risk");
     }
-  }, [props.data]);
+  }, [props]);
 
   return (
     <>
@@ -38,36 +56,36 @@ const UserDetails = (props) => {
           <Items
             key="Yield Performance"
             name="Yield Performance"
-            value={props.data[0].yield_performance}
+            value={props.yield_performance}
             maxValue="200"
           />
           <Items
             key="Soil health"
             name="Soil health"
-            value={props.data[0].soil_health}
+            value={props.soil_health}
             maxValue="200"
           />
           <Items
             key="Irrigation condition"
-            name="Irrigation condition"
-            value={props.data[0].irrigation_condition}
+            name="Irrigation conition"
+            value={props.irrigation_condition}
             maxValue="200"
           />
           <Items
             key="Risk property (Flood)"
             name="Risk property (Flood)"
-            value={props.data[0].risk_property_flood}
+            value={props.risk_property_flood}
             maxValue="200"
           />
           <Items
             key="Risk property (Drought)"
             name="Risk property (Drought)"
-            value={props.data[0].risk_property_drought}
+            value={props.risk_property_drought}
             maxValue="200"
           />
         </section>
         <section className="">
-          <HorizontalBarChart data={props.data} />
+          <HorizontalBarChart data={props} />
         </section>
       </div>
       <div className="bg-[#aeeccd] text-gray-900 h-1/4 rounded-md flex justify-around items-center p-3">

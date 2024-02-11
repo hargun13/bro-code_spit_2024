@@ -9,8 +9,16 @@ import {
   Legend,
 } from "recharts";
 
-const HorizontalBarChart = ({ data }) => {
-  const formattedData = Object.entries(data[0]).map(([name, value]) => ({
+const HorizontalBarChart = (props) => {
+  const data = [
+    { name: "Yield performance", value: 87 },
+    { name: "Soil health", value: 123 },
+    { name: "Irrigation condition", value: 145 },
+    { name: "Risk property (Flood)", value: 56 },
+    { name: "Risk property (Drought)", value: 61 },
+  ];
+
+  const formattedData = data.map(({ name, value }) => ({
     name,
     value,
   }));
