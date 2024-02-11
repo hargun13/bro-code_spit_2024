@@ -52,7 +52,7 @@ const Hero = () => {
       <Navbar />
 
       <div className="md:flex w-full items-center justify-center mt-5 text-black">
-        <div className="md:w-[55%] px-16">
+        <div className="md:w-[60%] px-16">
           <div className="flex items-center justify-start text-[10px] gap-3">
             <p className="bg-[#F0F1EB] py-1 px-3 rounded-full font-bold">
               Compliance
@@ -62,13 +62,13 @@ const Hero = () => {
             </p>
           </div>
 
-          <h1 className="md:text-[45px] text-5xl font-semibold py-3 ">
-            Unlocking success through
-          </h1>
-          <h1 className="md:text-[45px] text-5xl font-semibold pt-3 -ml-4">
-            <span className="bg-[#7fe4b2] px-4 rounded-full">
-              Compliance Excellence
-            </span>
+          <h1 className="md:text-[45px] text-5xl font-semibold pt-3 -ml-4 ">
+            Elevate
+            <span className="bg-[#9cefc5] px-4 rounded-full mx-5">
+              Agri Fintech
+            </span>{" "}
+            <br />
+            Precision.
           </h1>
 
           <p className="text-sm py-10 pr-40 font-bold my-5">
