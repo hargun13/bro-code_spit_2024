@@ -18,6 +18,7 @@ const Transactions = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
+        console.log(user);
         const data = await response.json();
         setTableData(data); // Assuming the response is an object
       } catch (error) {

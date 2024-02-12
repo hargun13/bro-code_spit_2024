@@ -2,7 +2,14 @@
 
 import express from "express";
 import admin from "firebase-admin";
-import { getTransactionData, transaction, userData } from "./controllers.mjs";
+import {
+  getLoanData,
+  getTransactionData,
+  getUser,
+  getUserSoil,
+  transaction,
+  userData,
+} from "./controllers.mjs";
 
 // Import the service account key
 const serviceAccount = "./spit-5b840-firebase-adminsdk-h59x8-e98e98d960.json";
@@ -29,6 +36,12 @@ app.post("/addUserData", userData);
 app.post("/transfer", transaction);
 
 app.get("/gettransfer/:email", getTransactionData);
+
+app.get("/getUserSoilData/:email", getUserSoil);
+
+app.get("/getLoanRequest/:email", getLoanData);
+
+app.get("/getUserData/:email", getUser);
 
 // Start the Express server
 app.listen(port, () => {
