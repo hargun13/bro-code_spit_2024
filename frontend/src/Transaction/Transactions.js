@@ -9,7 +9,7 @@ const Transactions = () => {
   useEffect(() => {
     const fetchData = async (user) => {
       try {
-        if (!user || !user.email) {
+        if (!user) {
           console.error("User object or email is missing.");
           return;
         }
